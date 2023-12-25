@@ -238,8 +238,12 @@ function getIndexOf(str, letter) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const str = `${num}`;
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === `${digit}`) return true;
+  }
+  return false;
 }
 
 /**
@@ -317,8 +321,20 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const resultArray = arr;
+
+  for (let i = 1; i < arr.length; i += 1) {
+    const currentElement = arr[i];
+
+    let j = i;
+    while (j > 0 && currentElement < arr[j - 1]) {
+      resultArray[j] = arr[j - 1];
+      j -= 1;
+    }
+    resultArray[j] = currentElement;
+  }
+  return resultArray;
 }
 
 /**
@@ -338,8 +354,32 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let resultNewStr = '';
+  let resultLostStr = '';
+  let newStr = str;
+  let result = '';
+  let count = iterations;
+  let n = 0;
+
+  while (count > 0) {
+    for (let i = 0; i < newStr.length; i += 1) {
+      if (i % 2 !== 0) {
+        resultNewStr += newStr[i];
+      } else resultLostStr += newStr[i];
+    }
+    result = resultLostStr + resultNewStr;
+    count -= 1;
+    n += 1;
+    newStr = result;
+    resultLostStr = '';
+    resultNewStr = '';
+    if (result === str) {
+      count = iterations % n;
+    }
+  }
+
+  return result;
 }
 
 /**
